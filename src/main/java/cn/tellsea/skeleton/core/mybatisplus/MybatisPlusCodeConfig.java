@@ -1,6 +1,5 @@
 package cn.tellsea.skeleton.core.mybatisplus;
 
-import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
@@ -8,48 +7,20 @@ import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
-import org.apache.commons.lang3.StringUtils;
 
-import java.io.File;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Mybatis plus 代码生成器
+ * Mybatis plus 代码生成器配置
  *
  * @author Tellsea
  * @Description Created on 2019/7/18
  * Mybatis plus 官网：https://mp.baomidou.com/guide/generator.html
  */
-public class CodeGenerator {
-
-    public static void main(String[] args) {
-        // 数据库时区问题解决方案
-        // SHOW VARIABLES LIKE '%time_zone%'
-        // SET GLOBAL time_zone='+8:00'
-        String[] arr = {"user", "role"};
-        for (int i = 0; i < arr.length; i++) {
-            codeGenerator("business", arr[i]);
-        }
-    }
-
-    public static String scanner(String tip) {
-        Scanner scanner = new Scanner(System.in);
-        StringBuilder help = new StringBuilder();
-        help.append("请输入" + tip + "：");
-        System.out.println(help.toString());
-        if (scanner.hasNext()) {
-            String ipt = scanner.next();
-            if (StringUtils.isNotEmpty(ipt)) {
-                return ipt;
-            }
-        }
-        throw new MybatisPlusException("请输入正确的" + tip + "！");
-    }
+public class MybatisPlusCodeConfig {
 
     /**
      * 项目路径
@@ -104,10 +75,10 @@ public class CodeGenerator {
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://47.107.171.232:3306/skeleton?characterEncoding=utf8");
+        dsc.setUrl("jdbc:mysql://localhost:3306/mybatis-plus-code?characterEncoding=utf8");
         dsc.setDriverName("com.mysql.jdbc.Driver");
         dsc.setUsername("root");
-        dsc.setPassword("Root123!@#");
+        dsc.setPassword("123456");
         mpg.setDataSource(dsc);
 
         // 包配置

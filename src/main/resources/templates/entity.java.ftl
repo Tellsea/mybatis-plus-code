@@ -23,6 +23,7 @@ import lombok.AllArgsConstructor;
 <#if superEntityClass??>
 public class ${entity} extends ${superEntityClass} {
 </#if>
+
 <#-- ----------  BEGIN 字段循环遍历  ---------->
 <#list table.fields as field>
     <#if field.keyFlag>
@@ -59,6 +60,9 @@ public class ${entity} extends ${superEntityClass} {
     </#if>
     <#if "create_time" == field.name>
     @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    </#if>
+    <#if "modify_time" == field.name>
+        @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     </#if>
     private ${field.propertyType} ${field.propertyName};
 
