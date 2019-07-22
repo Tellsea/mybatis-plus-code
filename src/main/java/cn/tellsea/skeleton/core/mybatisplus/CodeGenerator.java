@@ -31,7 +31,7 @@ public class CodeGenerator {
         // 数据库时区问题解决方案
         // SHOW VARIABLES LIKE '%time_zone%'
         // SET GLOBAL time_zone='+8:00'
-        String[] arr = {"user"};
+        String[] arr = {"user", "role"};
         for (int i = 0; i < arr.length; i++) {
             codeGenerator("business", arr[i]);
         }
@@ -62,7 +62,7 @@ public class CodeGenerator {
     private static final String templatePathController = "/templates/controller.java.ftl";
     private static final String templatePathService = "/templates/service.java.ftl";
     private static final String templatePathServiceImpl = "/templates/serviceImpl.java.ftl";
-    private static final String templatePathMapper = "/templates/dao.java.ftl";
+    private static final String templatePathMapper = "/templates/mapper.java.ftl";
     private static final String templatePathMapperXML = "/templates/mapper.xml.ftl";
     private static final String templatePathJsp = "/templates/view.jsp.ftl";
     /**
@@ -71,6 +71,10 @@ public class CodeGenerator {
     private static final String javaLocation = projectPath + "/src/main/java/cn/tellsea/skeleton/business/";
     private static final String xmlLocation = projectPath + "/src/main/resources/mapper/";
     private static final String pageLocation = projectPath + "/src/main/resources/views/";
+    /**
+     * 基类路径
+     */
+    private static final String basePackage = "cn.tellsea.skeleton.core.base";
 
     /**
      * 代码生成
@@ -132,13 +136,12 @@ public class CodeGenerator {
         StrategyConfig strategy = new StrategyConfig();
         strategy.setNaming(NamingStrategy.underline_to_camel);
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
-        strategy.setSuperEntityClass("cn.tellsea.skeleton.core.base.entity.BaseEntity");
-        strategy.setSuperControllerClass("cn.tellsea.skeleton.core.base.controller.BaseController");
-        strategy.setSuperServiceClass("cn.tellsea.skeleton.core.base.service.BaseService");
-        strategy.setSuperServiceImplClass("cn.tellsea.skeleton.core.base.service.impl.BaseServiceImpl");
+        strategy.setSuperEntityClass(basePackage + ".entity.BaseEntity");
+        strategy.setSuperControllerClass(basePackage + ".controller.BaseController");
+        strategy.setSuperServiceClass(basePackage + ".service.BaseService");
+        strategy.setSuperServiceImplClass(basePackage + ".service.impl.BaseServiceImpl");
         strategy.setEntityLombokModel(true);
         strategy.setInclude(tableName);
-        strategy.setSuperEntityColumns("id");
 
         strategy.setControllerMappingHyphenStyle(true);
         strategy.setTablePrefix(pc.getModuleName() + "_");
@@ -167,7 +170,7 @@ public class CodeGenerator {
         focList.add(new FileOutConfig(templatePathController) {
             @Override
             public String outputFile(TableInfo tableInfo) {
-                tableInfo.setXmlName(xiaoxie(tableInfo.getEntityName()));
+                tableInfo.setXmlName(convertToLowercase(tableInfo.getEntityName()));
                 return javaLocation + "/controller/" + tableInfo.getEntityName() + "Controller" + StringPool.DOT_JAVA;
             }
         });
@@ -208,34 +211,26 @@ public class CodeGenerator {
         focList.add(new FileOutConfig(templatePathJsp) {
             @Override
             public String outputFile(TableInfo tableInfo) {
-                String fileName = underline(new StringBuffer(xiaoxie(tableInfo.getEntityName()))).toString();
+                String fileName = humpTurnUnderscore(new StringBuffer(convertToLowercase(tableInfo.getEntityName()))).toString();
                 return pageLocation + fileName + ".jsp";
             }
         });
         return focList;
     }
 
-    public void createFileWithTemplates(String[] models, String[] tableNames) {
-        checkStringArray(models, tableNames);
-        InputStream inputStreamTemplates = this.getClass().getResourceAsStream("/templates");
-        if (inputStreamTemplates == null) {
-            InputStream inputStreamStatic = this.getClass().getResourceAsStream("/static");
-        } else {
-            File file = new File("");
-        }
-    }
-
-    private void checkStringArray(String[] models, String[] tableNames) {
-        if (models.length != tableNames.length) {
-            throw new RuntimeException("模块名和表面不一致");
-        }
-    }
-
-    public static String xiaoxie(String oldStr) {
+    /**
+     * 全部转为小写
+     *
+     * @param oldStr
+     * @return
+     */
+    public static String convertToLowercase(String oldStr) {
         char[] chars = oldStr.toCharArray();
         chars[0] += 32;
         return String.valueOf(chars);
     }
+
+    private static Pattern pattern = Pattern.compile("[A-Z]");
 
     /**
      * 驼峰转下划线
@@ -243,9 +238,7 @@ public class CodeGenerator {
      * @param str
      * @return
      */
-    private static Pattern pattern = Pattern.compile("[A-Z]");
-
-    public static StringBuffer underline(StringBuffer str) {
+    public static StringBuffer humpTurnUnderscore(StringBuffer str) {
         Matcher matcher = pattern.matcher(str);
         StringBuffer sb = new StringBuffer(str);
         if (matcher.find()) {
@@ -258,6 +251,6 @@ public class CodeGenerator {
         } else {
             return sb;
         }
-        return underline(sb);
+        return humpTurnUnderscore(sb);
     }
 }

@@ -26,9 +26,9 @@ public class BaseEntity {
     private Integer limit;
 
     /**
-     * 排序
+     * 排序类型
      */
-    private String sort;
+    private String sortType;
 
     /**
      * 排序字段名称

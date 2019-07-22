@@ -12,7 +12,7 @@ import lombok.AllArgsConstructor;
 </#if>
 
 /**
- * ${table.comment!}
+ * ${table.comment!} 实体类
  *
  * @author ${author}
  * @Description Created on ${date}
@@ -28,7 +28,6 @@ public class ${entity} extends ${superEntityClass} {
     <#if field.keyFlag>
         <#assign keyPropertyName="${field.propertyName}"/>
     </#if>
-
     <#if field.comment!?length gt 0>
         <#if swagger2>
     @ApiModelProperty(value = "${field.comment}")
@@ -39,7 +38,6 @@ public class ${entity} extends ${superEntityClass} {
         </#if>
     </#if>
     <#if field.keyFlag>
-
     <#-- 普通字段 -->
     <#elseif field.fill??>
     <#-- -----   存在字段填充设置   ----->
@@ -51,11 +49,11 @@ public class ${entity} extends ${superEntityClass} {
     <#elseif field.convert>
     @TableField("${field.name}")
     </#if>
-<#-- 乐观锁注解 -->
+    <#-- 乐观锁注解 -->
     <#if (versionFieldName!"") == field.name>
     @Version
     </#if>
-<#-- 逻辑删除注解 -->
+    <#-- 逻辑删除注解 -->
     <#if (logicDeleteFieldName!"") == field.name>
     @TableLogic
     </#if>

@@ -1,6 +1,5 @@
 package ${package.Controller};
 
-
 import org.springframework.web.bind.annotation.RequestMapping;
 import ${package.Entity}.${entity};
 <#if restControllerStyle>
@@ -16,7 +15,7 @@ import ${superControllerClassPackage};
  * ${table.comment!} 前端控制器
  *
  * @author ${author}
- * @date ${date}
+ * @Description Created on ${date}
  */
 <#if restControllerStyle>
 @RestController
@@ -28,7 +27,7 @@ import ${superControllerClassPackage};
 class ${table.controllerName}<#if superControllerClass??> : ${superControllerClass}()</#if>
 <#else>
 <#if superControllerClass??>
-public class ${table.controllerName} extends ${superControllerClass}<${table.serviceImplName}, ${entity}> {
+public class ${table.controllerName} extends ${superControllerClass}<${entity}> {
 <#else>
 public class ${table.controllerName} {
 </#if>
