@@ -30,6 +30,6 @@ dsc.setPassword("123456");
 
 接下来，找到Main方法，使用Java的方式运行即可。启动类路径：`cn.tellsea.skeleton.core.mybatisplus.MybatisPlusCode`
 
-注意：GIF图偏大，建议下载后查看，这样不会产生卡顿现象
+> 注意：GIF图偏大，建议下载后查看，这样不会产生卡顿现象
 
 ![mybatis-plus-code](https://github.com/Tellsea/mybatis-plus-code/blob/master/doc/images/mybatis-plus-code.gif)
