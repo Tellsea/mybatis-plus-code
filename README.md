@@ -13,10 +13,9 @@
 
 ## 使用方法
 
-首先创建数据库，名称为mybatis-plus-code，然后导入sql/mybatis-plus-code.sql 数据库
+首先创建数据库，名称为mybatis-plus-code，然后导入sql/mybatis-plus-code.sql 文件
 
-修改数据源配置，根据自己的实际地址修改
-配置类位置为：`cn.tellsea.skeleton.core.mybatisplus.MybatisPlusCodeConfig`
+修改数据源配置，根据自己的实际地址修改,配置类位置为：`cn.tellsea.skeleton.core.mybatisplus.MybatisPlusCodeConfig`
 
 ```java
 DataSourceConfig dsc = new DataSourceConfig();
@@ -27,5 +26,4 @@ dsc.setPassword("123456");
 mpg.setDataSource(dsc);
 ```
 
-接下来，找到Main方法，使用Java的方式运行即可
-启动类路径：`cn.tellsea.skeleton.core.mybatisplus.MybatisPlusCode`
+接下来，找到Main方法，使用Java的方式运行即可。启动类路径：`cn.tellsea.skeleton.core.mybatisplus.MybatisPlusCode`
