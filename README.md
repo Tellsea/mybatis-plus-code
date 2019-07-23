@@ -1,8 +1,10 @@
 # Mybatis Plus 代码生成器
 
+Star一下，谢谢 🎉🎉
+
 核心实现功能一键生成 Controller、Service、ServiceImpl、Mapper、Mapper.xml
 
-Mybatis Plus 官网文档
+参考文档，[Mybatis Plus 官网文档](https://mp.baomidou.com/guide/generator.html)
 
 ## 项目特点
 
